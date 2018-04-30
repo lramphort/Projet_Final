@@ -8,7 +8,7 @@ package application;
 
 /**
  *
- * @author Yi
+ * @author Yi je suis liyi
  */
 public class Champ {
     private String attribut;
