@@ -1,5 +1,7 @@
 package application;
 	
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -39,7 +41,22 @@ public class Main extends Application {
 		}
 	}
 	
-	public static void main(String[] args) {
-		launch(args);
+	public static void main(String[] args) throws Exception {
+		//launch(args);		
+		ArrayList<Champ>  schema = new ArrayList<>();
+		Champ champ1 = new Champ("nom","varchar(6)");
+		Profil profil = new Profil("Student");
+		profil.ajouterChamp(champ1);
+		//Base base = new Base();
+		//base.creerRelation(schema);
+		Base base = new Base();
+		try {
+			System.out.println(base.creerProfilSQL(profil));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block 
+			System.out.println("erreur");
+			e.printStackTrace();
+		}
 	}
+	
 }
