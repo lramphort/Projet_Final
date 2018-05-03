@@ -1,6 +1,7 @@
 package application;
 
 
+
 public class Champ {
 	 private String nom;
 	 private Object valeur;
