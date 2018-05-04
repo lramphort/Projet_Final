@@ -19,12 +19,23 @@ public class Services {
     private Connection conn;
     
 
+    /**
+     * 
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
 	public Services() throws ClassNotFoundException, SQLException {		
 		dbOracle = new ConnexionSGBD();
         conn = dbOracle.connexion();
 	}
 
-
+	/**
+	 * 
+	 * @param table
+	 * @param champs
+	 * @throws Exception
+	 * @throws SQLException
+	 */
 	public void inserer(String table,ArrayList<Champ> champs) throws Exception, SQLException   {
 
         Statement stmt = conn.createStatement();
@@ -36,8 +47,7 @@ public class Services {
         for(int i=0;i<champs.size();i++) {
         	nomsChamps.add(champs.get(i).getNameChamp().toUpperCase());
         }
-        
-        
+              
         String sql = "SELECT * FROM "+table; 
 		
 		ResultSet resultat = stmt.executeQuery(sql);
@@ -56,7 +66,7 @@ public class Services {
         		Exception("Les champs donnés sont différents de ceux de la table");
         }
             
-        /** on insère les valeurs dans la table pour chaque champ **/
+        /** on met les valeurs des champs dans une chaine de caracteres **/
         String s="";	
         for(int i=0; i<champs.size() ; i++) {        		
         	if(i==champs.size()-1) {
@@ -65,6 +75,7 @@ public class Services {
         		 s=s +"'"+champs.get(i).getValeurChamp().toString()+"'"+",";
         	} 
         }
+        /** on insere les valeurs dans la table sachant qu'elles sont dans la chaine s **/
 		String requete = "INSERT INTO "+table+" VALUES("+s+")";
 		System.out.println(requete);    
 		try {
@@ -73,19 +84,27 @@ public class Services {
 		    } catch (Exception e) {
 		        System.out.println("ERROR " + e.getMessage());
 		}
-      
+		stmt.close();
+		resultat.close();
     }
 	
-public ArrayList<Champ> retourChamp(String table) throws Exception,SQLException{
-		
+	/**
+	 * 
+	 * @param table
+	 * @return
+	 * @throws Exception
+	 * @throws SQLException
+	 */
+	public ArrayList<Champ> retourChamp(String table) throws Exception,SQLException{
+			
 		Statement stmt = conn.createStatement();
-		
+		/** une variable pour contenir le nom des colonnes de la table **/ 	
 		ArrayList<String> nomsChamps = new ArrayList<>();
-		ArrayList<Champ> champ = new ArrayList<>();
+		/** une variable pour contenir les champs qui seront créés 
+		 * avec des valeurs par défaut **/
+		ArrayList<Champ> champ = new ArrayList<>();			
 		
-		/** récupère les champs de la table **/
-		
-		String sql = "SELECT * FROM "+table; 
+		String sql = "select * from " + table; 
 		
 		ResultSet resultat = stmt.executeQuery(sql); 
 		
@@ -102,18 +121,21 @@ public ArrayList<Champ> retourChamp(String table) throws Exception,SQLException{
 	    /** on recupere les types java des différents champs **/
 	    
 	    for(int i = 1; i<= metadata.getColumnCount(); i++){ 
-     
+	    	/** getColumnClassName() renvoie le nom de la classe java **/
 	    	String typeJava = metadata.getColumnClassName(i); 
 	    	switch (typeJava) {
-				case "java.math.BigDecimal":
+				case "java.math.BigDecimal":					
 					Integer d = Integer.MIN_VALUE;
+					/** la variable d est celle par défaut du champ correspondant **/
 					champ.add(new Champ(nomsChamps.get(i-1),d));
 					break;
 				case "java.lang.String":
 					String s ="yes";
+					/** la variable s est celle par défaut du champ correspondant **/
 					champ.add(new Champ(nomsChamps.get(i-1),s));				
 					break;
-				case "java.lang.Boolean":					
+				case "java.lang.Boolean":		
+					/** si le champ est un booleen, alors la valeur par défaut est true **/
 					champ.add(new Champ(nomsChamps.get(i-1),true));
 					break;
 				case "java.sql.Timestamp":
@@ -129,6 +151,10 @@ public ArrayList<Champ> retourChamp(String table) throws Exception,SQLException{
 		return champ;				
 	}
 	
+	/**
+	 * 
+	 * @param ch
+	 */
 	public void inscription(ArrayList<Champ> ch) {
 		Scanner sc;
 		for(int i = 0; i<ch.size() ; i++) {
@@ -136,6 +162,7 @@ public ArrayList<Champ> retourChamp(String table) throws Exception,SQLException{
 			sc = new Scanner(System.in);
 			/** Si le type est une String **/
 			if (ch.get(i).getValeurChamp() instanceof String){
+
 				
 				try {
 					ch.get(i).modifierValeur(sc.nextLine());
@@ -178,6 +205,7 @@ public ArrayList<Champ> retourChamp(String table) throws Exception,SQLException{
 		                    + ". Veuillez entrer la date au format JJ-MM-AA");
 		            System.out.println("message" + e.getMessage());
 		        }
+
 		        try {
 					ch.get(i).modifierValeur(date);
 				} catch (Exception e) {
@@ -186,11 +214,76 @@ public ArrayList<Champ> retourChamp(String table) throws Exception,SQLException{
 				}		        
 		        
 			}		
+		}	
+	}
+	
+	/** pas terminé
+	 * public ArrayList<Profil> recherche(String table, Champ c) throws SQLException{
+		ArrayList<Profil> p = new ArrayList<>();
+		String req = "select * from "+table+" where "+c.getNameChamp()+" = "+c.getValeurChamp();
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(req);
+		
+		ResultSetMetaData metadata = rs.getMetaData();
+		while(rs.next()) {
+			for(int j=1;j<=metadata.getColumnCount();j++) {
+				
+			}
 		}
 		
+		stmt.close();
+		rs.close();
+		return null;
 		
+	}**/
+	
+	/**
+	 * 
+	 * @param table
+	 * @param p
+	 * @throws SQLException 
+	 */
+	public void updateProfil(String table, Profil p, ArrayList<Champ> oldChampProfil) throws SQLException {
+		Statement stmt = conn.createStatement();
+		/** on déclare une variable pour contenir les champs du profil p **/
+		ArrayList<Champ> c = new ArrayList<>();
+		c=p.getChamps();
 		
+		/** on met les noms et les valeurs des champs dans une chaine de 
+		 * caracteres pour faciliter la requete sql **/
+        String s1="";	
+        for(int i=0; i<c.size() ; i++) {        		
+        	if(i==c.size()-1) {
+        		 s1 = s1 + c.get(i).getNameChamp()+" = '"+c.get(i).getValeurChamp().toString()+"'";
+        	}else {
+        		 s1 = s1 + c.get(i).getNameChamp()+" = '"+c.get(i).getValeurChamp().toString()+"',";
+        	} 
+        }
+        
+        /** on met les noms et les valeurs des anciens champs du profil dans une chaine de 
+		 * caracteres pour gérer la condition pour la mise à jour **/
+        String s2="";	
+        for(int i=0; i<c.size() ; i++) {        		
+        	if(i==c.size()-1) {
+        		 s2 = s2 + c.get(i).getNameChamp()+" = '"+c.get(i).getValeurChamp().toString()+"'";
+        	}else {
+        		 s2 = s2 + c.get(i).getNameChamp()+" = '"+c.get(i).getValeurChamp().toString()+"' and ";
+        	} 
+        }
+        
+        String requete = "UPDATE "+table+ " SET "+s1+" WHERE "+s2;
+        /** affichage de la requete **/
+        System.out.println(requete);
+        try {
+        	/** mise à jour dans la table **/
+			stmt.executeUpdate(requete);
+		    System.out.println("Modification réussie");
+		    } catch (Exception e) {
+		        System.out.println("ERROR " + e.getMessage());
+		}
+        stmt.close();
 	}
+	
 	
 	
 }
