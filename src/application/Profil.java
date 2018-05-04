@@ -19,27 +19,34 @@ public class Profil {
 	public Profil(ArrayList<Champ> c) {
 		champs = new ArrayList<Champ>();
 		champs = c;
-	}
-		
+	}		
 	
 	/**
-	 * obtenir les champs
+	 * 
 	 * @return les champs de la class Profil
 	 */
 	public ArrayList<Champ> getChamps() {return Profil.champs;}
 		
-
 	/**
-	 * @param nomChamp
-	 * @param val
+	 * 
+	 * @param c
+	 * @return 
 	 */
-	public void modifierValeurChamp(String nom, Object val) {	
-		for(int i=0;i<champs.size();i++) {
-			if(champs.get(i).getNameChamp().equals(nom)) {
-				champs.get(i).modifierValeur(val);
+	public ArrayList<Champ> modifierProfil(ArrayList<Champ> c) {
+		ArrayList<Champ> oldChamps = new ArrayList<>();
+		oldChamps = this.getChamps();
+		for(int i=0 ; i<c.size() ; i++) {
+			for(int j=0 ; j<champs.size() ; j++) {
+				if(c.get(i).getNameChamp().toUpperCase().equals(champs.get(j).getNameChamp().toUpperCase())) {
+					champs.get(j).modifierValeur(c.get(i).getValeurChamp());
+				}
 			}
 		}
+		return oldChamps;
 	}
+
+	
+	
 	
 
 }
