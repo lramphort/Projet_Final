@@ -1,5 +1,3 @@
 # Projet_Final
 Commandes GIT
-nique ta grandmère
-encore une fois
-merde
+On va mettre des mots gentils please !!!
