@@ -1,7 +1,6 @@
 package application;
 
 
-
 public class Champ {
 	 private String nom;
 	 private Object valeur;
@@ -10,18 +9,13 @@ public class Champ {
 	  * 
 	  * @param name
 	  * @param v
-	  * @param opt
 	  * @throws Exception 
-	  * @require val_not_null : opt && val.equals(null)
 	  */
-	 public Champ(String name, Object v) throws Exception{
-		 	if( name.equals(null) ) throw new Exception("name = null");
+	 public Champ(String name, Object v){   
 	    	this.nom = name;
-		    this.valeur = v;
-	    
+		    this.valeur = v;    
 	 }
-	 
-	    
+	 	    
 	 /**
 	  * 
 	  * @return nom
@@ -32,8 +26,7 @@ public class Champ {
 	  * 
 	  * @return valeur
 	  */
-	 public Object getValeurChamp() {return this.valeur;}
-	
+	 public Object getValeurChamp() {return this.valeur;}	
 	 
 	 /**
 	  * modifie la valeur d'un champ
