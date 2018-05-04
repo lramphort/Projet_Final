@@ -28,9 +28,11 @@ public class Profil {
 	public ArrayList<Champ> getChamps() {return Profil.champs;}
 		
 	/**
-	 * 
-	 * @param c
-	 * @return 
+
+	 * @param nomChamp
+	 * @param val
+	 * @require stringNotNull : 
+
 	 */
 	public ArrayList<Champ> modifierProfil(ArrayList<Champ> c) {
 		ArrayList<Champ> oldChamps = new ArrayList<>();
@@ -41,7 +43,7 @@ public class Profil {
 					champs.get(j).modifierValeur(c.get(i).getValeurChamp());
 				}
 			}
-		}
+		}https://www.developpez.net/forums/d428515/java/general-java/apis/java-util/parcourir-liste-l-aide-d-iterator/
 		return oldChamps;
 	}
 
