@@ -137,17 +137,32 @@ public ArrayList<Champ> retourChamp(String table) throws Exception,SQLException{
 			/** Si le type est une String **/
 			if (ch.get(i).getValeurChamp() instanceof String){
 				
-				ch.get(i).modifierValeur(sc.nextLine());
+				try {
+					ch.get(i).modifierValeur(sc.nextLine());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}/** Si le type est un Double **/
 			else if(ch.get(i).getValeurChamp() instanceof Integer) {
 				
-				ch.get(i).modifierValeur(sc.nextInt());
+				try {
+					ch.get(i).modifierValeur(sc.nextInt());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}/** Si le type est un booléen **/
 			else if(ch.get(i).getValeurChamp() instanceof Boolean) {	
 				
-				ch.get(i).modifierValeur(sc.nextBoolean());
+				try {
+					ch.get(i).modifierValeur(sc.nextBoolean());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
 			}/** Si le type est une date **/
 			else {
@@ -163,7 +178,12 @@ public ArrayList<Champ> retourChamp(String table) throws Exception,SQLException{
 		                    + ". Veuillez entrer la date au format JJ-MM-AA");
 		            System.out.println("message" + e.getMessage());
 		        }
-		        ch.get(i).modifierValeur(date);		        
+		        try {
+					ch.get(i).modifierValeur(date);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		        
 		        
 			}		
 		}

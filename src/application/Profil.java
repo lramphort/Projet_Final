@@ -32,6 +32,7 @@ public class Profil {
 	/**
 	 * @param nomChamp
 	 * @param val
+	 * @require stringNotNull : 
 	 */
 	public void modifierValeurChamp(String nom, Object val) {	
 		for(int i=0;i<champs.size();i++) {
