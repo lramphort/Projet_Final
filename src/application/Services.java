@@ -162,16 +162,35 @@ public class Services {
 			sc = new Scanner(System.in);
 			/** Si le type est une String **/
 			if (ch.get(i).getValeurChamp() instanceof String){
-				/** on modifie la valeur par défaut **/
-				ch.get(i).modifierValeur(sc.nextLine());				
+
+				
+				try {
+					ch.get(i).modifierValeur(sc.nextLine());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}/** Si le type est un Double **/
 			else if(ch.get(i).getValeurChamp() instanceof Integer) {
-				/** on modifie la valeur par défaut **/
-				ch.get(i).modifierValeur(sc.nextInt());				
+				
+				try {
+					ch.get(i).modifierValeur(sc.nextInt());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}/** Si le type est un booléen **/
 			else if(ch.get(i).getValeurChamp() instanceof Boolean) {	
-				/** on modifie la valeur par défaut **/
-				ch.get(i).modifierValeur(sc.nextBoolean());		
+				
+				try {
+					ch.get(i).modifierValeur(sc.nextBoolean());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 			}/** Si le type est une date **/
 			else {
 		        String date = sc.nextLine();
@@ -186,8 +205,14 @@ public class Services {
 		                    + ". Veuillez entrer la date au format JJ-MM-AA");
 		            System.out.println("message" + e.getMessage());
 		        }
-		        /** on modifie la valeur par défaut **/
-		        ch.get(i).modifierValeur(date);		        		        
+
+		        try {
+					ch.get(i).modifierValeur(date);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		        
+		        
 			}		
 		}	
 	}
