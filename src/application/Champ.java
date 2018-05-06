@@ -1,30 +1,30 @@
 package application;
 
 
-
 public class Champ {
 	 private String nom;
-	 private Object valeur; 
-	 private boolean opt;
+	 private Object valeur;
 	    
 	 /**
 	  * 
 	  * @param name
 	  * @param v
-	  * @param opt
 	  * @throws Exception 
-	  * @require val not null : opt && val.equals(null)
+	  * @require val_not_null : val.equals(null)
+	  * @ensure nom_valeur : this.nom == name && this.valeur == v
 	  */
-	 public Champ(String name, Object v, boolean opt) throws Exception{
-	    if(opt && v.equals(null)) throw new Exception("Le champ doit être rempli");
-	    else {
+	 public Champ(String name, Object v) throws Exception{
+		 	if( name.equals(null) )
+		 		{ throw new Exception("val_not_null");}
+		 	
 	    	this.nom = name;
 		    this.valeur = v;
-		    this.opt=opt;
-	    }
+		    
+		    if( !(this.nom == name && this.valeur == v) )
+		    	{ throw new Exception("nom_valeur");}
+
 	 }
-	 
-	    
+	 	    
 	 /**
 	  * 
 	  * @return nom
@@ -35,17 +35,17 @@ public class Champ {
 	  * 
 	  * @return valeur
 	  */
-	 public Object getValeurChamp() {return this.valeur;}
-	 
-	 /**
-	  * @return opt
-	  */
-	 public boolean getOptionnal() {return opt;}
+	 public Object getValeurChamp() {return this.valeur;}	
 	 
 	 /**
 	  * modifie la valeur d'un champ
 	  * @param val
+	  * @ensure valCorrect : valeur ==  val
 	  */
-	 public void modifierValeur(Object val) {valeur=val;}
-	
+	 public void modifierValeur(Object val) throws Exception{
+		 	valeur=val;
+		 	if(!(valeur ==  val))
+		 		{ throw new Exception("nom_valeur");}
+	 }
+	 
 }
