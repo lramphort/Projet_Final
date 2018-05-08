@@ -3,7 +3,6 @@ package application;
 import java.util.*;
 
 import application.connection.ConnexionSGBD;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -154,8 +153,9 @@ public class Services {
 	/**
 	 * 
 	 * @param ch
+	 * @throws Exception 
 	 */
-	public void inscription(ArrayList<Champ> ch) {
+	public void inscription(ArrayList<Champ> ch) throws Exception {
 		Scanner sc;
 		for(int i = 0; i<ch.size() ; i++) {
 			System.out.println("Donnez une valeur pour "+ch.get(i).getNameChamp());
@@ -217,25 +217,43 @@ public class Services {
 		}	
 	}
 	
-	/** pas terminé
-	 * public ArrayList<Profil> recherche(String table, Champ c) throws SQLException{
-		ArrayList<Profil> p = new ArrayList<>();
-		String req = "select * from "+table+" where "+c.getNameChamp()+" = "+c.getValeurChamp();
+	/****
+	 * 
+	 * @param table
+	 * @param c
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<Profil> recherche(String table, ArrayList<Champ> c) throws Exception{
+		Profil p = new Profil(c);
+		ArrayList<Profil> profilsTrouvés = new ArrayList<>();
+		
+		ArrayList<Champ> ch = new ArrayList<>();
+		
+		String condition = p.champToCondition();
+		String req = "select * from "+table+" where "+condition;
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(req);
 		
 		ResultSetMetaData metadata = rs.getMetaData();
+		
 		while(rs.next()) {
+			/** on ajoute dans la liste des champs les valeurs qui seront trouvés **/
 			for(int j=1;j<=metadata.getColumnCount();j++) {
-				
+				ch.add(new Champ(metadata.getColumnName(j), rs.getObject(j)));
 			}
+			
+			profilsTrouvés.add(new Profil(ch));
+			/** on réinitilise la variable ch pour ajouter un autre profil
+			 * qui sera trouvé avec la condition de recherche**/
+			ch = new ArrayList<>();
 		}
 		
 		stmt.close();
 		rs.close();
-		return null;
+		return profilsTrouvés;
 		
-	}**/
+	}
 	
 	/**
 	 * 
@@ -243,47 +261,42 @@ public class Services {
 	 * @param p
 	 * @throws SQLException 
 	 */
-	public void updateProfil(String table, Profil p, ArrayList<Champ> oldChampProfil) throws SQLException {
+	public void updateProfil(String table, Profil p, String condition) throws SQLException {
 		Statement stmt = conn.createStatement();
-		/** on déclare une variable pour contenir les champs du profil p **/
-		ArrayList<Champ> c = new ArrayList<>();
-		c=p.getChamps();
-		
-		/** on met les noms et les valeurs des champs dans une chaine de 
-		 * caracteres pour faciliter la requete sql **/
-        String s1="";	
-        for(int i=0; i<c.size() ; i++) {        		
-        	if(i==c.size()-1) {
-        		 s1 = s1 + c.get(i).getNameChamp()+" = '"+c.get(i).getValeurChamp().toString()+"'";
-        	}else {
-        		 s1 = s1 + c.get(i).getNameChamp()+" = '"+c.get(i).getValeurChamp().toString()+"',";
-        	} 
-        }
-        
-        /** on met les noms et les valeurs des anciens champs du profil dans une chaine de 
-		 * caracteres pour gérer la condition pour la mise à jour **/
-        String s2="";	
-        for(int i=0; i<c.size() ; i++) {        		
-        	if(i==c.size()-1) {
-        		 s2 = s2 + c.get(i).getNameChamp()+" = '"+c.get(i).getValeurChamp().toString()+"'";
-        	}else {
-        		 s2 = s2 + c.get(i).getNameChamp()+" = '"+c.get(i).getValeurChamp().toString()+"' and ";
-        	} 
-        }
-        
-        String requete = "UPDATE "+table+ " SET "+s1+" WHERE "+s2;
+		String newChamp=p.champToString();
+        String requete = "UPDATE "+table+ " SET " + newChamp + " WHERE "+condition;
         /** affichage de la requete **/
         System.out.println(requete);
         try {
         	/** mise à jour dans la table **/
 			stmt.executeUpdate(requete);
 		    System.out.println("Modification réussie");
-		    } catch (Exception e) {
+		} catch (Exception e) {
 		        System.out.println("ERROR " + e.getMessage());
 		}
         stmt.close();
 	}
 	
+	
+	public void supprimerProfil(String table, Profil p) throws SQLException {
+		
+		Statement stmt = conn.createStatement();
+		
+		String condition = p.champToCondition();
+		
+		String req = "delete from "+table+" where "+condition;
+		
+		System.out.println(req);
+		
+		try {
+			/** suppression du profil dans la BD **/
+			stmt.executeUpdate(req);
+		    System.out.println("Profil supprimé");
+		} catch (Exception e) {
+			System.out.println("ERROR " + e.getMessage());
+		}
+		stmt.close();		
+	}
 	
 	
 }
