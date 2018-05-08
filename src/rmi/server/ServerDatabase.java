@@ -78,4 +78,38 @@ public class ServerDatabase {
 		// TODO Auto-generated method stub
 		
 	}
-}//class
+	public void afficherReactionById(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void afficherReactionByIdPers(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void afficherReactionByIdPub(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void modifierReaction(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void retirerReaction(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public int nbReactions() throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}
