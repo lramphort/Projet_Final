@@ -1,4 +1,5 @@
 package rmi.server;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -73,4 +74,8 @@ public class ServerDatabase {
 		return admin.containsKey(username);
 	}//isAdmin
 	
+	public void reagit(int idEtudiant, int idPublication, String rea) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
 }//class
