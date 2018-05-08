@@ -44,9 +44,10 @@ public class ControllerInscription implements Initializable{
 	}
 	@FXML
 	public void inscriOk(ActionEvent event) {
-		String ll;
+		//String ll;
 		//ll = getLogin();
-		System.out.println(login.getText());
+		//System.out.println(login.getText());
+		System.out.println(getLogin());
 	}
 
 	@Override
