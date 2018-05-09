@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 public class Profil {
-	protected ArrayList<Champ> champs; 
+	protected  ArrayList<Champ> champs; 
 	
 	/**
 	 * 

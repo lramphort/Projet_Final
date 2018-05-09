@@ -3,6 +3,8 @@ package application;
 import java.util.*;
 
 import application.connection.ConnexionSGBD;
+
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -297,6 +299,125 @@ public class Services {
 		}
 		stmt.close();		
 	}
+	
+	public void reagit(String relation,  int idPublication, int idEtudiant,int idReaction, String rea) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+		//inserer une ligne dans bd
+		try {
+		        Statement stmt = conn.createStatement();
+		        String insertReaction = "Insert into "+ relation + " values (" + idPublication + "," + idEtudiant  + "," + idReaction + ",'" + rea + "')";
+		        System.out.println(insertReaction);
+		        stmt.executeUpdate(insertReaction);
+		} catch (Exception e) {
+			SQLWarningsExceptions.printExceptions((SQLException) e);
+		    System.err.println("Got an exception!"); 
+		}
+	}
+	
+	public void afficherReactionById(String relation, int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		//select * form bd where idReaction = idReaction;
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from " + relation + "where idReaction=" + idReaction);
+			while (rs.next()) {
+				rs.getInt(3);
+			}
+		} catch (Exception e) {
+	        SQLWarningsExceptions.printExceptions((SQLException) e);
+	        System.err.println("Got an exception!"); 
+	    }
+	}
+
+
+	public void afficherReactionByIdPers(String relation, int idPers) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		//select reaction from bd where id = idPers
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from " + relation + "where idPers=" + idPers);
+			while (rs.next()) {
+				rs.getInt(3);
+			}
+		} catch (Exception e) {
+	        SQLWarningsExceptions.printExceptions((SQLException) e);
+	        System.err.println("Got an exception!"); 
+	    }
+	}
+
+
+	public void afficherReactionByIdPub(String relation, int idPub) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		//select reaction from bd where id=IdPub
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from " + relation + "where idReaction=" + idPub);
+			
+			while (rs.next()) {
+				rs.getInt(3);
+			}
+		} catch (Exception e) {
+	        SQLWarningsExceptions.printExceptions((SQLException) e);
+	        System.err.println("Got an exception!"); 
+	    }
+		
+	}
+
+
+	public void modifierReaction(String relation, int idEtudiant, int idPub, String rea, int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		//delete une ligne where id = idReaction
+		//inserer une linge where id = idReaction
+		try {
+	        Statement stmt = conn.createStatement();
+	        String insertReaction = "insert into "+ relation + "values (" + idEtudiant + "," + idPub + "," + rea + ")";
+	        String deleteReaction = "delete from " + relation + "where idRalation = " + idReaction;
+	        stmt.executeQuery(deleteReaction);
+	        stmt.executeUpdate(insertReaction);
+		} catch (Exception e) {
+			SQLWarningsExceptions.printExceptions((SQLException) e);
+		    System.err.println("Got an exception!"); 
+	}
+	}
+
+
+	public void retirerReaction(String relation, int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		//delete une ligne where id = idReaction
+		try {
+	        Statement stmt = conn.createStatement();	       
+	        String deleteReaction = "delete from " + relation + "where idRalation = " + idReaction;
+	        stmt.executeQuery(deleteReaction);	      
+		} catch (Exception e) {
+			SQLWarningsExceptions.printExceptions((SQLException) e);
+		    System.err.println("Got an exception!"); 
+	}
+	}
+
+
+	public int nbReactions(String relation) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		// select count (*) from bd;
+		int nbReactions = 0;
+        try (// Get a statement from the connection
+                Statement stmt = conn.createStatement(); // Execute the query
+
+                ResultSet rc = stmt.executeQuery("select count(*) from " + relation)) {
+
+            while (rc.next()) {
+                nbReactions = rc.getInt(1);                   
+                //System.out.println("nbParticipants: " + nbParticipants + " ");
+
+            }
+        }
+        return nbReactions;		
+       
+	}
+	
+	
 	
 	
 }

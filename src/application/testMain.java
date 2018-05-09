@@ -4,7 +4,6 @@ package application;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 public class testMain {
 
 
@@ -12,7 +11,17 @@ public class testMain {
      
 		String table="profil";
 		Services s = new Services();
-		
+		/*
+		System.out.println(s.nbReactions("Reaction"));
+		s.afficherReactionById("Reaction", 0);
+		s.afficherReactionByIdPers("Reaction", 115);
+		s.afficherReactionByIdPub("Reaction", 117);
+		s.reagit("Reaction", 111, 211, 311,"favoris");
+		s.modifierReaction("Reaction", 111, 211, "favoris", 311);
+		*/
+		s.reagit("Reaction", 111, 211, 311,"favoris");
+		//s.afficherReactionById(conn, relation, idReaction);
+		/*
 		ArrayList<Champ> champs1 = s.retourChamp(table);
 		
 		ArrayList<Champ> champs2 = new ArrayList<>();
@@ -32,21 +41,21 @@ public class testMain {
 		
 		ArrayList<Champ> c = new ArrayList<>();
 		
-		/** on veut modifier le champ PASS **/
+		/** on veut modifier le champ PASS 
 		c.add(new Champ("PASS", "yooo"));
 		
 		
 		String condition = p2.champToCondition();
 		
-		/** dans le profil p2, on modifie le mot de passe **/
+		/** dans le profil p2, on modifie le mot de passe 
 		p2.modifierProfil(c);
 		
-		/** pour mettre à jour la modification dan la base de données **/
+		/** pour mettre à jour la modification dan la base de données 
 		s.updateProfil(table, p2, condition);
 	
 		
 		/** suppression d'un profil
-		s.supprimerProfil(table, p2);*/
+		s.supprimerProfil(table, p2);
 		
 		ArrayList<Champ> rech = new ArrayList<>();
 		rech.add(new Champ("login", "lol"));
@@ -56,6 +65,6 @@ public class testMain {
 		find =s.recherche(table, rech);
 		
 		System.out.println("profil trouvé "+find.get(0).champToString());
-		
+		*/
     }    	
 }

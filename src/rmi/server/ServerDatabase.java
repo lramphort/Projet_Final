@@ -18,7 +18,7 @@ public class ServerDatabase {
 	private TreeMap<String, Object> admin;
 	private ConnexionSGBD dbOracle;
     private Connection conn;
-	public ServerDatabase ()
+	public ServerDatabase () throws ClassNotFoundException, SQLException
 	{
 		loginInfo = new TreeMap<String, String>();
 		loginInfo.put("admin", "admin");
