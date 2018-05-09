@@ -1,22 +1,27 @@
 package rmi.server;
 import java.rmi.RemoteException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 import application.Champ;
+import application.ConnexionSGBD;
 import application.Services;
 
 
 public class ServerDatabase {
 	private TreeMap<String, String> loginInfo;
 	private TreeMap<String, Object> admin;
-	
+	private ConnexionSGBD dbOracle;
+    private Connection conn;
 	public ServerDatabase ()
 	{
 		loginInfo = new TreeMap<String, String>();
 		loginInfo.put("admin", "admin");
 		admin = new TreeMap<String, Object>();
 		admin.put("admin", null);
+		dbOracle = new ConnexionSGBD();
+        conn = dbOracle.connexion();
 	}//constructor
 	
 	public boolean authenticateLogin (String username, String password)
