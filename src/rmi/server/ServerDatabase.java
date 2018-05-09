@@ -1,4 +1,5 @@
 package rmi.server;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -73,4 +74,53 @@ public class ServerDatabase {
 		return admin.containsKey(username);
 	}//isAdmin
 	
-}//class
+	public void reagit(int idEtudiant, int idPublication, String rea) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		//inserer une ligne dans bd
+		
+	}
+	public void afficherReactionById(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		//select * form bd where idReaction = idReaction;
+		
+	}
+
+
+	public void afficherReactionByIdPers(int idPers) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		//select reaction from bd where id = idPers
+		
+	}
+
+
+	public void afficherReactionByIdPub(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		//select reaction from bd where id=IdPub
+		
+	}
+
+
+	public void modifierReaction(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		//delete une ligne where id = idReaction
+		//inserer une linge where id = idReaction
+		
+	}
+
+
+	public void retirerReaction(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		//delete une ligne where id = idReaction
+		
+	}
+
+
+	public int nbReactions() throws RemoteException {
+		// TODO Auto-generated method stub
+		// select count (*) from bd;
+		return 0;
+	}
+}

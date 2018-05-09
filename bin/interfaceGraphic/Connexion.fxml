@@ -12,7 +12,7 @@
     <Label layoutX="50.0" layoutY="123.0" text="Pass Word :" />
     <TextField layoutX="135.0" layoutY="74.0" prefWidth="200.0" />
     <TextField layoutX="135.0" layoutY="123.0" prefWidth="200.0" />
-    <Button id="connexion" layoutX="127.0" layoutY="178.0" mnemonicParsing="false" onAction="#showInfoProfil" prefHeight="22.0" prefWidth="113.0" text="Connexion" />
-    <Button id="inscription" layoutX="127.0" layoutY="235.0" mnemonicParsing="false" onAction="#showInscription" prefHeight="22.0" prefWidth="113.0" text="Inscription" />
+    <Button id="connexion" layoutX="135.0" layoutY="172.0" mnemonicParsing="false" onAction="#showInfoProfil" prefHeight="22.0" prefWidth="170.0" text="Connexion" />
+    <Button id="inscription" layoutX="135.0" layoutY="221.0" mnemonicParsing="false" onAction="#showInscription" prefHeight="22.0" prefWidth="170.0" text="Inscription" />
   </children>
 </AnchorPane>

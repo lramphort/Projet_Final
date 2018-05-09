@@ -56,5 +56,53 @@ public class Server implements RemoteInterface {
 			e.printStackTrace();
 		}//catch
 	}//main
+
+	@Override
+	public void reagit(int idEtudiant, int idPublication, String rea) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void afficherReactionById(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void afficherReactionByIdPers(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void afficherReactionByIdPub(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void modifierReaction(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void retirerReaction(int idReaction) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int nbReactions() throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }//class
