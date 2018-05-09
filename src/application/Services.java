@@ -299,6 +299,20 @@ public class Services {
 		}
 		stmt.close();		
 	}
+	//************************************************Reaction************************************************************************
+	
+	public void stocker() throws RemoteException, SQLException {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("Insert into Admin values(511,'Lee','login','yee','yeelee.vip@gmail.com')");
+			stmt.executeUpdate("Insert into Diffuseur values(611,'yee','lee','passdif','mail','doimaine','bloqué')");
+			stmt.executeUpdate("Insert into Etudiant values(111,'LI','Yi','yee','12345','0651614','yeelee.vip@gmail.com','metier','CDI','bac+3','aucune','bloqué')");
+			stmt.executeUpdate("Insert into Publication values(211,'titre','motcle','typePub','textSaisi','chemin',511,611)");			
+		}catch (Exception e) {
+			SQLWarningsExceptions.printExceptions((SQLException) e);
+		    System.err.println("Got an exception!"); 
+		}
+	}
 	
 	public void reagit(String relation,  int idPublication, int idEtudiant,int idReaction, String rea) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
@@ -306,9 +320,10 @@ public class Services {
 		//inserer une ligne dans bd
 		try {
 		        Statement stmt = conn.createStatement();
-		        String insertReaction = "Insert into "+ relation + " values (" + idPublication + "," + idEtudiant  + "," + idReaction + ",'" + rea + "')";
-		        System.out.println(insertReaction);
-		        stmt.executeUpdate(insertReaction);
+		        //String insertReaction = "Insert into "+ relation + " values(" + idPublication + "," + idEtudiant  + "," + idReaction + "," + "'" +rea+"'"+");";
+		        //System.out.println(insertReaction);
+		        stmt.executeUpdate("Insert into "+ relation + " values(" + idPublication + "," + idEtudiant  + "," + idReaction + "," + "'" +rea+"'"+")");
+		        System.out.println("bon");
 		} catch (Exception e) {
 			SQLWarningsExceptions.printExceptions((SQLException) e);
 		    System.err.println("Got an exception!"); 
@@ -401,7 +416,7 @@ public class Services {
 	public int nbReactions(String relation) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		// select count (*) from bd;
-		int nbReactions = 0;
+		int nbReactions = 1;
         try (// Get a statement from the connection
                 Statement stmt = conn.createStatement(); // Execute the query
 
@@ -417,7 +432,68 @@ public class Services {
        
 	}
 	
+	//*************************************************Commentaire*****************************************************************
+	public void commenter(String relation,  int idPublication, int idEtudiant,int idCommentaire, String comm) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		
+		//inserer une ligne dans bd
+		try {
+		        Statement stmt = conn.createStatement();
+		        String insertReaction = "Insert into "+ relation + " values (" + idPublication + "," + idEtudiant  + "," + idCommentaire + ",'" + comm + "')";
+		        System.out.println(insertReaction);
+		        stmt.executeUpdate(insertReaction);
+		} catch (Exception e) {
+			SQLWarningsExceptions.printExceptions((SQLException) e);
+		    System.err.println("Got an exception!"); 
+		}
+	}
 	
+	public void afficherCommentaireById(String relation, int idComm) throws RemoteException {
+		// TODO Auto-generated method stub
+		//select * form bd where idReaction = idReaction;
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from " + relation + "where idReaction=" + idComm);
+			while (rs.next()) {
+				rs.getInt(3);
+			}
+		} catch (Exception e) {
+	        SQLWarningsExceptions.printExceptions((SQLException) e);
+	        System.err.println("Got an exception!"); 
+	    }
+	}
+	
+	public void retirerCommentaire(String relation, int idCommentaire) throws RemoteException {
+		// TODO Auto-generated method stub
+		//delete une ligne where id = idReaction
+		try {
+	        Statement stmt = conn.createStatement();	       
+	        String deleteReaction = "delete from " + relation + "where idRalation = " + idCommentaire;
+	        stmt.executeQuery(deleteReaction);	      
+		} catch (Exception e) {
+			SQLWarningsExceptions.printExceptions((SQLException) e);
+		    System.err.println("Got an exception!"); 
+		}
+	}
+	
+	public int nbCommentaire(String relation) throws RemoteException, SQLException {
+		// TODO Auto-generated method stub
+		// select count (*) from bd;
+		int nbReactions = 0;
+        try (// Get a statement from the connection
+                Statement stmt = conn.createStatement(); // Execute the query
+
+                ResultSet rc = stmt.executeQuery("select count(*) from " + relation)) {
+
+            while (rc.next()) {
+                nbReactions = rc.getInt(1);                   
+                //System.out.println("nbParticipants: " + nbParticipants + " ");
+
+            }
+        }
+        return nbReactions;		
+       
+	}
 	
 	
 }

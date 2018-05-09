@@ -19,7 +19,9 @@ public class testMain {
 		s.reagit("Reaction", 111, 211, 311,"favoris");
 		s.modifierReaction("Reaction", 111, 211, "favoris", 311);
 		*/
-		s.reagit("Reaction", 111, 211, 311,"favoris");
+		//s.stocker();
+		System.out.println(s.nbReactions("Reaction"));
+		s.reagit("Reaction", 211, 111, 814,"favoris");
 		//s.afficherReactionById(conn, relation, idReaction);
 		/*
 		ArrayList<Champ> champs1 = s.retourChamp(table);
