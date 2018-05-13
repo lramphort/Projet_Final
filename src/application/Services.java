@@ -415,7 +415,7 @@ public class Services {
 		//delete une ligne where id = idReaction
 		try {
 	        Statement stmt = conn.createStatement();	       
-	        String deleteReaction = "delete from " + relation + "where idRalation = " + idReaction;
+	        String deleteReaction = "delete from " + relation + " where idReaction = " + idReaction;
 	        stmt.executeQuery(deleteReaction);	      
 		} catch (Exception e) {
 			SQLWarningsExceptions.printExceptions((SQLException) e);

@@ -28,8 +28,9 @@ public class testMain {
 		 * System.out.println(s.afficherReactionByIdPers("Reaction", 111).get(3)); ---bon
 		 * System.out.println(s.afficherReactionByIdPub("Reaction", 211).get(3)); ---bon
 		 * s.modifierReaction("Reaction", 111, 211, "jaime", 818); ---bon
+		 * s.retirerReaction("Reaction", 818); ---bon
 		 */
-		//
+		
 		
 		/*
 		ArrayList<Champ> champs1 = s.retourChamp(table);
