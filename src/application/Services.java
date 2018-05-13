@@ -330,68 +330,79 @@ public class Services {
 		}
 	}
 	
-	public void afficherReactionById(String relation, int idReaction) throws RemoteException {
+	public ArrayList<String> afficherReactionById(String relation, int idReaction) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
+		//String re = " ";
+		ArrayList<String> re = new ArrayList<String>();
 		//select * form bd where idReaction = idReaction;
-		try {
+		try (
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from " + relation + "where idReaction=" + idReaction);
-			while (rs.next()) {
-				rs.getInt(3);
+			ResultSet rs = stmt.executeQuery("select * from " + relation + " where idReaction =" + idReaction)){
+		while (rs.next()) {
+				//re = " " + rs.getString(4);
+				re.add(String.valueOf(rs.getInt(1)));
+				re.add(String.valueOf(rs.getInt(2)));
+				re.add(String.valueOf(rs.getInt(3)));
+				re.add(rs.getString(4));
 			}
-		} catch (Exception e) {
-	        SQLWarningsExceptions.printExceptions((SQLException) e);
-	        System.err.println("Got an exception!"); 
-	    }
+		} 
+		
+		return re;
 	}
 
 
-	public void afficherReactionByIdPers(String relation, int idPers) throws RemoteException {
+	public ArrayList<String> afficherReactionByIdPers(String relation, int idEtd) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
-		
-		//select reaction from bd where id = idPers
-		try {
+		//String re = " ";
+		ArrayList<String> re = new ArrayList<String>();
+		//select * form bd where idReaction = idReaction;
+		try (
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from " + relation + "where idPers=" + idPers);
-			while (rs.next()) {
-				rs.getInt(3);
+			ResultSet rs = stmt.executeQuery("select * from " + relation + " where noEtd =" + idEtd)){
+		while (rs.next()) {
+				//re = " " + rs.getString(4);
+				re.add(String.valueOf(rs.getInt(1)));
+				re.add(String.valueOf(rs.getInt(2)));
+				re.add(String.valueOf(rs.getInt(3)));
+				re.add(rs.getString(4));
 			}
-		} catch (Exception e) {
-	        SQLWarningsExceptions.printExceptions((SQLException) e);
-	        System.err.println("Got an exception!"); 
-	    }
+		} 
+		
+		return re;
 	}
-
-
-	public void afficherReactionByIdPub(String relation, int idPub) throws RemoteException {
+	
+	
+	public ArrayList<String> afficherReactionByIdPub(String relation, int idPub) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
-		
-		//select reaction from bd where id=IdPub
-		try {
+		//String re = " ";
+		ArrayList<String> re = new ArrayList<String>();
+		//select * form bd where idReaction = idReaction;
+		try (
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from " + relation + "where idReaction=" + idPub);
-			
-			while (rs.next()) {
-				rs.getInt(3);
+			ResultSet rs = stmt.executeQuery("select * from " + relation + " where idPub =" + idPub)){
+		while (rs.next()) {
+				//re = " " + rs.getString(4);
+				re.add(String.valueOf(rs.getInt(1)));
+				re.add(String.valueOf(rs.getInt(2)));
+				re.add(String.valueOf(rs.getInt(3)));
+				re.add(rs.getString(4));
 			}
-		} catch (Exception e) {
-	        SQLWarningsExceptions.printExceptions((SQLException) e);
-	        System.err.println("Got an exception!"); 
-	    }
+		} 
 		
+		return re;
 	}
-
-
+	
 	public void modifierReaction(String relation, int idEtudiant, int idPub, String rea, int idReaction) throws RemoteException {
 		// TODO Auto-generated method stub
 		//delete une ligne where id = idReaction
 		//inserer une linge where id = idReaction
 		try {
 	        Statement stmt = conn.createStatement();
-	        String insertReaction = "insert into "+ relation + "values (" + idEtudiant + "," + idPub + "," + rea + ")";
-	        String deleteReaction = "delete from " + relation + "where idRalation = " + idReaction;
+	        //String insertReaction = "insert into "+ relation + "values (" + idEtudiant + "," + idPub + "," + rea + ")";
+	        String deleteReaction = "delete from " + relation + " where idReaction = " + idReaction;
 	        stmt.executeQuery(deleteReaction);
-	        stmt.executeUpdate(insertReaction);
+	        this.reagit("Reaction", idPub, idEtudiant, idReaction, rea);
+	        //stmt.executeUpdate(insertReaction);
 		} catch (Exception e) {
 			SQLWarningsExceptions.printExceptions((SQLException) e);
 		    System.err.println("Got an exception!"); 

@@ -20,9 +20,17 @@ public class testMain {
 		s.modifierReaction("Reaction", 111, 211, "favoris", 311);
 		*/
 		//s.stocker();
+		//#########################################TESTER################################################
 		System.out.println(s.nbReactions("Reaction"));
-		s.reagit("Reaction", 211, 111, 814,"favoris");
-		//s.afficherReactionById(conn, relation, idReaction);
+		/** Tester Reactions
+		 * s.reagit("Reaction", 211, 111, 818,"favoris"); ---bon
+		 * System.out.println(s.afficherReactionById("Reaction", 818).get(3)); ---bon 
+		 * System.out.println(s.afficherReactionByIdPers("Reaction", 111).get(3)); ---bon
+		 * System.out.println(s.afficherReactionByIdPub("Reaction", 211).get(3)); ---bon
+		 * s.modifierReaction("Reaction", 111, 211, "jaime", 818); ---bon
+		 */
+		//
+		
 		/*
 		ArrayList<Champ> champs1 = s.retourChamp(table);
 		
