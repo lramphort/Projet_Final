@@ -301,6 +301,11 @@ public class Services {
 	}
 	//************************************************Reaction************************************************************************
 	
+	/**
+	 * 
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
 	public void stocker() throws RemoteException, SQLException {
 		try {
 			Statement stmt = conn.createStatement();
@@ -313,7 +318,16 @@ public class Services {
 		    System.err.println("Got an exception!"); 
 		}
 	}
-	
+	/**
+	 * ajouter une lingne dans Une relation
+	 * @param relation  nom de la relation
+	 * @param idPublication 
+	 * @param idEtudiant
+	 * @param idReaction
+	 * @param rea reaction
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
 	public void reagit(String relation,  int idPublication, int idEtudiant,int idReaction, String rea) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		
@@ -330,6 +344,14 @@ public class Services {
 		}
 	}
 	
+	/**
+	 * afficher les reactions par Id de la relation
+	 * @param relation
+	 * @param idReaction
+	 * @return une liste qui comprend les attributs de charque reaction
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
 	public ArrayList<String> afficherReactionById(String relation, int idReaction) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		//String re = " ";
@@ -350,7 +372,14 @@ public class Services {
 		return re;
 	}
 
-
+	/**
+	 * afficher les reactions par Id de personne
+	 * @param relation
+	 * @param idEtd
+	 * @return une liste qui comprend les attributs de  reaction
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
 	public ArrayList<String> afficherReactionByIdPers(String relation, int idEtd) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		//String re = " ";
@@ -371,7 +400,14 @@ public class Services {
 		return re;
 	}
 	
-	
+	/**
+	 * afficher les reaction par id de publication
+	 * @param relation
+	 * @param idPub
+	 * @return une liste qui comprend les attributs de reaction
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
 	public ArrayList<String> afficherReactionByIdPub(String relation, int idPub) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		//String re = " ";
@@ -392,6 +428,15 @@ public class Services {
 		return re;
 	}
 	
+	/**
+	 * modifier une reaction
+	 * @param relation
+	 * @param idEtudiant
+	 * @param idPub
+	 * @param rea reaction
+	 * @param idReaction
+	 * @throws RemoteException
+	 */
 	public void modifierReaction(String relation, int idEtudiant, int idPub, String rea, int idReaction) throws RemoteException {
 		// TODO Auto-generated method stub
 		//delete une ligne where id = idReaction
@@ -409,7 +454,12 @@ public class Services {
 	}
 	}
 
-
+	/**
+	 * supprime une reaction
+	 * @param relation
+	 * @param idReaction
+	 * @throws RemoteException
+	 */
 	public void retirerReaction(String relation, int idReaction) throws RemoteException {
 		// TODO Auto-generated method stub
 		//delete une ligne where id = idReaction
@@ -423,7 +473,13 @@ public class Services {
 	}
 	}
 
-
+	/**
+	 * nombre de reaction
+	 * @param relation
+	 * @return nombre de reaction
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
 	public int nbReactions(String relation) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		// select count (*) from bd;
@@ -444,6 +500,16 @@ public class Services {
 	}
 	
 	//*************************************************Commentaire*****************************************************************
+	/**
+	 * ajouter une commentaire dans la relation Commentaire
+	 * @param relation
+	 * @param idPublication
+	 * @param idEtudiant
+	 * @param idCommentaire
+	 * @param comm
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
 	public void commenter(String relation,  int idPublication, int idEtudiant,int idCommentaire, String comm) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		
@@ -459,6 +525,12 @@ public class Services {
 		}
 	}
 	
+	/**
+	 * affichier les commentaires par id de commentaire
+	 * @param relation
+	 * @param idComm
+	 * @throws RemoteException
+	 */
 	public void afficherCommentaireById(String relation, int idComm) throws RemoteException {
 		// TODO Auto-generated method stub
 		//select * form bd where idReaction = idReaction;
@@ -473,7 +545,12 @@ public class Services {
 	        System.err.println("Got an exception!"); 
 	    }
 	}
-	
+	/**
+	 * supprimer une commentaire
+	 * @param relation
+	 * @param idCommentaire
+	 * @throws RemoteException
+	 */
 	public void retirerCommentaire(String relation, int idCommentaire) throws RemoteException {
 		// TODO Auto-generated method stub
 		//delete une ligne where id = idReaction
@@ -486,7 +563,13 @@ public class Services {
 		    System.err.println("Got an exception!"); 
 		}
 	}
-	
+	/**
+	 * nombre de commentaires
+	 * @param relation
+	 * @return la nombre de commentaire
+	 * @throws RemoteException
+	 * @throws SQLException
+	 */
 	public int nbCommentaire(String relation) throws RemoteException, SQLException {
 		// TODO Auto-generated method stub
 		// select count (*) from bd;
